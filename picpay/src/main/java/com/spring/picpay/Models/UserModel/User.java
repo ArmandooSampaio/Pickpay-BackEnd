@@ -1,5 +1,6 @@
 package com.spring.picpay.Models.UserModel;
 
+import com.spring.picpay.dto.UserDto.UserDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,8 +31,20 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserType userType;
 
+    private String password;
     private String firstName;
     private String lastName;
+
+    public User(UserDto userDto){
+        this.balance = userDto.balance();
+        this.email = userDto.email();
+        this.password = userDto.password();
+        this.userType = userDto.userType();
+        this.firstName = userDto.firstName();
+        this.lastName = userDto.lastName();
+        this.document = userDto.document();
+
+    }
 
 
     @Override

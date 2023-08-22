@@ -1,6 +1,7 @@
 package com.spring.picpay.Models.TransactionModel;
 
 import com.spring.picpay.Models.UserModel.User;
+import com.spring.picpay.dto.TransactionDto.TransactionDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

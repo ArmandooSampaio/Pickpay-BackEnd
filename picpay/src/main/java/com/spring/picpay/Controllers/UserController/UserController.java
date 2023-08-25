@@ -1,4 +1,4 @@
-package com.spring.picpay.Controllers;
+package com.spring.picpay.Controllers.UserController;
 
 import com.spring.picpay.Models.UserModel.User;
 import com.spring.picpay.Services.UserService.UserService;
@@ -17,7 +17,7 @@ public class UserController {
     UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<User>> allUsers() {
+    public ResponseEntity<List<User>> showAllUsers() {
         List<User> users = userService.findAll();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }

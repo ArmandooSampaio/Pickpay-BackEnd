@@ -1,30 +1,34 @@
-# PickPay Backend Project
+# PickPay Backend
 
-##Introdução
-Um picpay bem simplificado com Spring Boot, foi feito com base em um desafio que
-o propio pickpay Lançou para selecionar programadores um tempo atrás.
-O desefio Consistia basicamente criar uma Api para o Seguinte requisito de negocio: 
-Temos 2 tipos de usuários, os comuns e lojistas, ambos têm carteira com dinheiro e realizam transferências entre eles. Vamos nos atentar somente ao fluxo de transferência entre dois usuários.
+## Introdução
 
-Requisitos:
+O PickPay Backend é uma implementação simplificada de um sistema de pagamento inspirado no PicPay, desenvolvido com Spring Boot. Este projeto foi baseado em um desafio lançado pelo PicPay para selecionar programadores. O desafio consistia em criar uma API para atender aos seguintes requisitos de negócio:
 
-Para ambos tipos de usuário, precisamos do Nome Completo, CPF, e-mail e Senha. CPF/CNPJ e e-mails devem ser únicos no sistema. Sendo assim, seu sistema deve permitir apenas um cadastro com o mesmo CPF ou endereço de e-mail.
+- Existem dois tipos de usuários: comuns e lojistas, ambos com uma carteira de dinheiro que permite transferências entre eles. Este documento se concentra no fluxo de transferência entre dois usuários.
 
-Usuários podem enviar dinheiro (efetuar transferência) para lojistas e entre usuários.
+### Requisitos
 
-Lojistas só recebem transferências, não enviam dinheiro para ninguém.
+#### Cadastro de Usuários
 
-Validar se o usuário tem saldo antes da transferência.
+- Para ambos os tipos de usuários, é necessário coletar as seguintes informações: Nome Completo, CPF, e-mail e Senha.
+- O CPF/CNPJ e endereços de e-mail devem ser únicos no sistema, ou seja, não é permitido cadastrar mais de um usuário com o mesmo CPF ou endereço de e-mail.
 
-Antes de finalizar a transferência, deve-se consultar um serviço autorizador externo, use este mock para simular (https://run.mocky.io/v3/8fafdd68-a090-496f-8c9a-3442cf30dae6).
+#### Transferências de Dinheiro
 
-A operação de transferência deve ser uma transação (ou seja, revertida em qualquer caso de inconsistência) e o dinheiro deve voltar para a carteira do usuário que envia.
+- Usuários podem enviar dinheiro, ou seja, realizar transferências, para lojistas ou entre usuários.
+- Lojistas apenas recebem transferências e não podem enviar dinheiro para outros usuários.
+- Antes de concluir uma transferência, o sistema deve validar se o usuário possui saldo suficiente para a transação.
+- Antes de finalizar a transferência, é necessário consultar um serviço autorizador externo. Utilize o seguinte mock para simular essa consulta: [Mock de Autorização](https://run.mocky.io/v3/8fafdd68-a090-496f-8c9a-3442cf30dae6).
+- A operação de transferência deve ser tratada como uma transação, o que significa que, em caso de inconsistência, o dinheiro deve ser revertido para a carteira do usuário que realizou a transferência.
 
-No recebimento de pagamento, o usuário ou lojista precisa receber notificação (envio de email, sms) enviada por um serviço de terceiro e eventualmente este serviço pode estar indisponível/instável. Use este mock para simular o envio (http://o4d9z.mocklab.io/notify).
+#### Notificações de Pagamento
 
-Este serviço deve ser RESTFul.
+- Quando um usuário ou lojista recebe um pagamento, eles devem ser notificados por meio de um serviço de terceiros. Este serviço pode estar indisponível ou instável, e você deve simular o envio de notificações usando o seguinte mock: [Mock de Notificação](http://o4d9z.mocklab.io/notify).
+- A API deve ser RESTful, seguindo os princípios de design de APIs.
 
 ## Tecnologias Utilizadas
+
+O PickPay Backend foi desenvolvido utilizando as seguintes tecnologias:
 
 - Java 17
 - Spring Boot 3.1.2
@@ -36,16 +40,38 @@ Este serviço deve ser RESTFul.
 ## Funcionalidades Principais
 
 ### Gerenciamento de Usuários
-**Descrição:** o Sistema Cria e gerencia usuários na base de dados.
 
-**Endpoints:** 
-- `POST "/users" o Sistema Cria um Novo Usuário
-- `Get "/users" o Sistema retorna todos os usuários cadastrados
+#### Descrição
+
+O sistema é responsável por criar e gerenciar os usuários na base de dados.
+
+#### Endpoints
+
+- `POST "/users"`: Cria um novo usuário.
+- `GET "/users"`: Retorna todos os usuários cadastrados.
 
 ### Gerenciamento de Transações
-**Endpoints:** 
-- `POST "/transactions" o Sistema Cria uma Nova Transação 
-- `Get "/transactions" o Sistema retorna todos as Transações
+
+#### Endpoints
+
+- `POST "/transactions"`: Cria uma nova transação.
+- `GET "/transactions"`: Retorna todas as transações cadastradas.
+
+## Exemplos de Uso
+
+Aqui estão alguns exemplos de como usar os endpoints da API:
+
+### Criação de Novo Usuário
+
+**Requisição POST** `"/users"`
+
+```json
+{
+  "nomeCompleto": "João da Silva",
+  "cpf": "123.456.789-00",
+  "email": "joao@example.com",
+  "senha": "senha123"
+}
 
 
 
